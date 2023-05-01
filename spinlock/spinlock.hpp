@@ -1,3 +1,5 @@
+#pragma once
+
 #include <atomic>
 
 class spinlock_mutex {
@@ -11,5 +13,7 @@ class spinlock_mutex {
       ;
   }
 
-  void unlock() { flag.clear(std::memory_order_release); }
+  void unlock() {
+    flag.clear(std::memory_order_release);
+  }
 };
