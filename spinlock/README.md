@@ -1,9 +1,9 @@
 # spinlock
 
-使用 `std::atomic_flag` 实现一个最简单的自旋锁 `spinlock_mutex`，支持以下两个方法：
+使用 `std::atomic_flag` 实现一个最简单的自旋锁 `spinlock_mutex`，支持以下接口：
 
-1. `lock()`
-2. `unlock()`
+1. `void lock()`
+2. `void unlock()`
 
 代码位于 [./spinlock.hpp](./spinlock.hpp)。
 
