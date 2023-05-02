@@ -8,7 +8,7 @@ void hello() {
 }
 
 int main() {
-  ThreadPool pool(4);
+  ThreadPool pool{4};
   pool.submit(hello);
   sleep(2);
   return 0;

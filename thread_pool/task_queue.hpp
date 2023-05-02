@@ -5,7 +5,7 @@
 #include <queue>
 
 template <typename T>
-class task_queue {
+class TaskQueue {
  private:
   mutable std::mutex mtx_;
   std::queue<T> q_;
@@ -13,14 +13,14 @@ class task_queue {
   bool shutdown_{false};
 
  public:
-  task_queue() = default;
+  TaskQueue() = default;
   void push(const T& item);
   bool pop(T& ret);
   void signal_for_kill();
 };
 
 template <typename T>
-void task_queue<T>::push(const T& item) {
+void TaskQueue<T>::push(const T& item) {
   {
     std::lock_guard lk{mtx_};
     q_.push(item);
@@ -29,7 +29,7 @@ void task_queue<T>::push(const T& item) {
 }
 
 template <typename T>
-bool task_queue<T>::pop(T& ret) {
+bool TaskQueue<T>::pop(T& ret) {
   std::unique_lock lk{mtx_};
   cv_.wait(lk, [this] { return !q_.empty() || shutdown_; });
 
@@ -42,7 +42,7 @@ bool task_queue<T>::pop(T& ret) {
 }
 
 template <typename T>
-void task_queue<T>::signal_for_kill() {
+void TaskQueue<T>::signal_for_kill() {
   {
     std::lock_guard lk{mtx_};
     shutdown_ = true;
