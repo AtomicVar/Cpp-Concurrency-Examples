@@ -2,11 +2,11 @@
 
 #include <atomic>
 
-class spinlock_mutex {
+class SpinLock {
   std::atomic_flag flag;
 
  public:
-  spinlock_mutex() : flag(ATOMIC_FLAG_INIT) {}
+  SpinLock() : flag(ATOMIC_FLAG_INIT) {}
 
   void lock() {
     while (flag.test_and_set(std::memory_order_acquire))

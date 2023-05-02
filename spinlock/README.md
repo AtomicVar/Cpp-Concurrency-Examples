@@ -1,6 +1,6 @@
-# spinlock
+# SpinLock
 
-使用 `std::atomic_flag` 实现一个最简单的自旋锁 `spinlock_mutex`，支持以下接口：
+使用 `std::atomic_flag` 实现一个最简单的自旋锁 `SpinLock`，支持以下接口：
 
 1. `void lock()`
 2. `void unlock()`
@@ -13,4 +13,4 @@ TODO
 
 ## 参考
 
-- 《C++ 并发编程实战》（第二版）5.2.2
+- 《C++ 并发编程实战》（第二版）5.2.2 节

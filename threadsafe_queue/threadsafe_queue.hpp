@@ -5,15 +5,15 @@
 #include <queue>
 
 template <typename T>
-class threadsafe_queue {
+class ThreadSafeQueue {
  private:
   mutable std::mutex mtx_;
   std::queue<T> q_;
   std::condition_variable cv_;
 
  public:
-  threadsafe_queue() = default;
-  threadsafe_queue(const threadsafe_queue& other);
+  ThreadSafeQueue() = default;
+  ThreadSafeQueue(const ThreadSafeQueue& other);
   void push(const T& item);
   void pop(T& ret);
   bool try_pop(T& ret);
@@ -21,13 +21,13 @@ class threadsafe_queue {
 };
 
 template <typename T>
-threadsafe_queue<T>::threadsafe_queue(const threadsafe_queue& other) {
+ThreadSafeQueue<T>::ThreadSafeQueue(const ThreadSafeQueue& other) {
   std::lock_guard lk{other.mtx_};
   q_ = other.q_;
 }
 
 template <typename T>
-void threadsafe_queue<T>::push(const T& item) {
+void ThreadSafeQueue<T>::push(const T& item) {
   {
     std::lock_guard lk{mtx_};
     q_.push(item);
@@ -36,7 +36,7 @@ void threadsafe_queue<T>::push(const T& item) {
 }
 
 template <typename T>
-void threadsafe_queue<T>::pop(T& ret) {
+void ThreadSafeQueue<T>::pop(T& ret) {
   std::unique_lock lk{mtx_};
   cv_.wait(lk, [this] { return !q_.empty(); });
   ret = q_.front();
@@ -44,7 +44,7 @@ void threadsafe_queue<T>::pop(T& ret) {
 }
 
 template <typename T>
-bool threadsafe_queue<T>::try_pop(T& ret) {
+bool ThreadSafeQueue<T>::try_pop(T& ret) {
   std::lock_guard lk{mtx_};
   if (q_.empty())
     return false;
@@ -54,7 +54,7 @@ bool threadsafe_queue<T>::try_pop(T& ret) {
 }
 
 template <typename T>
-bool threadsafe_queue<T>::empty() const {
+bool ThreadSafeQueue<T>::empty() const {
   std::lock_guard lk{mtx_};
   return q_.empty();
 }
