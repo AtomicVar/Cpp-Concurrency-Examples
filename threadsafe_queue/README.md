@@ -1,6 +1,6 @@
 # ThreadSafeQueue
 
-使用 `std::condition_variable` 实现的一个简单的线程安全的队列 `ThreadSafeQueue<T>`，支持以下接口：
+使用 `std::mutex` 和 `std::condition_variable` 实现的一个简单的线程安全的队列 `ThreadSafeQueue<T>`，支持以下接口：
 
 1. `void push(const T& item)`
 2. `void pop(T& ret)`

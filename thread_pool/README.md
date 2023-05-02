@@ -2,8 +2,8 @@
 
 使用 [`std::packaged_task`](https://en.cppreference.com/w/cpp/thread/packaged_task) 和 [`std::future`](https://en.cppreference.com/w/cpp/thread/future) 实现一个简单的线程池 `ThreadPool`，代码包含两个文件：
 
-1. [thread_pool.hpp](./thread_pool.hpp)：线程池 class `ThreadPool` 的实现。
-2. [task_queue.hpp](./task_queue.hpp)：任务队列 class `TaskQueue` 的实现。
+1. [thread_pool.hpp](./thread_pool.hpp)：线程池 `ThreadPool` 的实现。
+2. [task_queue.hpp](./task_queue.hpp)：任务队列 `TaskQueue` 的实现。
 
 ## 1. 线程池设计
 
