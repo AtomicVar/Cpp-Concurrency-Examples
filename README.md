@@ -7,3 +7,8 @@
 - [thread_pool/](thread_pool/)：使用 `std::packaged_task` 和 `std::future` 实现一个简单的**线程池**。
 
 主要参考资料：《C++ 并发编程实战》（第二版）。
+
+## TODO
+- [ ] 线程池的 `wait_for_all` 方法。
+- [ ] 线程池的异常处理。
+- [ ] 线程安全队列的无锁版本。
