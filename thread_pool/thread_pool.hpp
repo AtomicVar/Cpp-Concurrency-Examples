@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "task_queue.hpp"
+#include "spdlog/spdlog.h"
 
 class ThreadPool {
  private:
@@ -18,17 +19,20 @@ class ThreadPool {
 
   // 每个工作线程：尝试从工作队列中取出一个任务，并执行
   void worker(int worker_id) {
-    //std::cout << "LOG: thread " << worker_id << " started." << std::endl;
+    spdlog::info("worker {} started.", worker_id);
     std::function<void()> func;
     while (tasks_.pop(func)) {
       func();
     }
-    //std::cout << "LOG: thread " << worker_id << " finished." << std::endl;
+    spdlog::info("worker {} finished.", worker_id);
   }
 
  public:
   // 构造函数：创建 n_threads 个线程（worker）待命
-  ThreadPool(const int n_threads) {
+  ThreadPool(int n_threads = -1) {
+    if (n_threads == -1) {
+      n_threads = std::thread::hardware_concurrency();
+    }
     for (int i = 0; i < n_threads; i++) {
       threads_.emplace_back(&ThreadPool::worker, this, i);
     }
@@ -44,6 +48,7 @@ class ThreadPool {
 
   // 告诉任务队列准备关闭，然后等待所有线程结束
   void shutdown() {
+    spdlog::info("Thread pool is shutting down...");
     tasks_.signal_for_kill();
 
     for (auto& t : threads_) {
