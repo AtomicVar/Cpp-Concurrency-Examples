@@ -113,7 +113,7 @@ ThreadPool(int n_threads = -1) {
 
 ## 2. 任务队列设计
 
-任务队列和本仓库的另一个线程安全队列 [`ThreadSafeQueue`](../ThreadSafeQueue/) 基本一致，其主要接口如下：
+任务队列和本仓库的另一个线程安全队列 [`ThreadSafeQueue`](../ThreadSafeQueue/) 基本一致，本质上就是一个**阻塞队列**，其主要接口如下：
 
 1. 推送任务到队列：
     ```c++
