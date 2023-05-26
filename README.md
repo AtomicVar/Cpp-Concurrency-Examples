@@ -7,6 +7,11 @@
 - [thread_pool/](thread_pool/)：使用 `std::packaged_task` 和 `std::future` 实现一个简单的**线程池**。
 - [producer_consumer/](producer_consumer/)：基于有限阻塞队列实现**生产者消费者模型**。
 
+编译环境：
+- Ubuntu 22.04
+- g++ 11.3.0
+- C++17
+
 主要参考资料：《C++ 并发编程实战》（第二版）。
 
 ## TODO
